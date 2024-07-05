@@ -1,0 +1,4 @@
+numba==0.60.0
+matplotlib==3.9.0
+cupy==13.2.0
+cupy-cuda12x==13.2.0
