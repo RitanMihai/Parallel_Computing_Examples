@@ -10,16 +10,16 @@ def gpu_vector_addition_cupy(n):
     b = cp.random.rand(n)
     c = cp.empty_like(a)
 
-    # Start the timer
-    start_time = time.time()
+    # Start timing
+    start_time = time.perf_counter()
 
     cp.add(a, b, c)
 
     # Synchronize the device to ensure all operations are finished
     cp.cuda.Device().synchronize()
 
-    # End the timer
-    end_time = time.time()
+    # End timing
+    end_time = time.perf_counter()
 
     # Calculate the time taken
     time_taken = end_time - start_time
@@ -54,8 +54,8 @@ def gpu_vector_addition_cupy_custom_kernel(n):
 
     blocks_per_grid = (n + max_threads_per_block - 1) // max_blocks_per_grid
 
-    # Start the timer
-    start_time = time.time()
+    # Start timing
+    start_time = time.perf_counter()
 
     # Launch the custom kernel
     vector_addition_kernel((blocks_per_grid,), (max_threads_per_block,), (a, b, c, n))
@@ -63,8 +63,8 @@ def gpu_vector_addition_cupy_custom_kernel(n):
     # Synchronize the device to ensure all operations are finished
     cp.cuda.Device().synchronize()
 
-    # End the timer
-    end_time = time.time()
+    # End timing
+    end_time = time.perf_counter()
 
     # Calculate the time taken
     time_taken = end_time - start_time
@@ -92,11 +92,14 @@ def gpu_vector_addition_numba(n):
     threads_per_block = 256
     blocks_per_grid = (a.size + (threads_per_block - 1)) // threads_per_block
 
-    # Timing the multi-threaded CPU implementation
-    start_time = time.time()
+    # Start timing
+    start_time = time.perf_counter()
+
     vector_add_gpu[blocks_per_grid, threads_per_block](a_device, b_device, c_device)
     cuda.synchronize()
-    end_time = time.time()
+
+    # End timing
+    end_time = time.perf_counter()
 
     # Calculate the time taken
     time_taken = end_time - start_time

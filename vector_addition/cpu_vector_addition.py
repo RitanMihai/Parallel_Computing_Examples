@@ -27,11 +27,12 @@ def cpu_vector_addition_single_thread(n):
     b = np.random.rand(n)
     c = np.empty_like(a)
 
-    # Start the timer
-    start_time = time.time()
+    # Start timing
+    start_time = time.perf_counter()
+
     vector_add_single_thread(a, b, c)
-    # End the timer
-    end_time = time.time()
+    # End timing
+    end_time = time.perf_counter()
     # Calculate the time taken
     time_taken = end_time - start_time
 
@@ -48,7 +49,8 @@ def cpu_vector_addition_vanilla_python(n):
     chunk_size = len(a) // num_cores
     threads = []
 
-    start_time = time.time()
+    # Start timing
+    start_time = time.perf_counter()
 
     for i in range(num_cores):
         start = i * chunk_size
@@ -60,7 +62,8 @@ def cpu_vector_addition_vanilla_python(n):
     for thread in threads:
         thread.join()
 
-    end_time = time.time()
+    # End timing
+    end_time = time.perf_counter()
 
     time_taken = end_time - start_time
     return time_taken
@@ -70,10 +73,11 @@ def cpu_vector_addition_multithread_numba(n):
     b = np.random.rand(n)
     c = np.empty_like(a)
 
-    # Timing the multi-threaded CPU implementation
-    start_time = time.time()
+    # Start timing
+    start_time = time.perf_counter()
     vector_add_multi_thread(a, b, c)
-    end_time = time.time()
+    # End timing
+    end_time = time.perf_counter()
 
     # Calculate the time taken
     time_taken = end_time - start_time

@@ -46,7 +46,7 @@ def compare_performance(n_values, num_runs=10):
         print(f"GPU (Custom Kernel) average: {results['gpu_custom_kernel'][-1]:.10f} seconds")
         print(f"GPU (Numba) average: {results['gpu_numba'][-1]:.10f} seconds")
 
-    with open("performance_results_2.json", "w") as f:
+    with open("performance_results.json", "w") as f:
         json.dump(results, f)
 
 

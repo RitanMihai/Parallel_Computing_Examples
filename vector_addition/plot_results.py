@@ -15,7 +15,7 @@ class Method(Enum):
 
 
 def plot_performance(methods_to_plot):
-    with open("performance_results_2.json", "r") as f:
+    with open("performance_results.json", "r") as f:
         results = json.load(f)
 
     dimensions = results["dimensions"]
